@@ -5,6 +5,10 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
+
+// Explicitly require tedious so Netlify's bundler includes it for the mssql dialect
+require('tedious');
+
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.js')[env]; // Use a direct, static path
 
