@@ -1,10 +1,8 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
-const basename = path.basename(__filename);
 
 // Explicitly require tedious so Netlify's bundler includes it for the mssql dialect
 require('tedious');
@@ -24,20 +22,16 @@ if (config.use_env_variable) {
 }
 
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+
+// SERVERLESS FIX: Netlify's bundler cannot statically analyze fs.readdirSync() 
+// or dynamic requires. You must require each model manually below.
+// Make sure the string matches your actual model file name exactly:
+const Inventory = require('./inventory.js')(sequelize, Sequelize.DataTypes);
+db[Inventory.name] = Inventory;
+
+// If you have other models, add them manually as well:
+// const User = require('./user.js')(sequelize, Sequelize.DataTypes);
+// db[User.name] = User;
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
