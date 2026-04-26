@@ -1,20 +1,29 @@
 {
-  "name": "sample-node-project",
+  "name": "nodeapi",
   "version": "1.0.0",
-  "description": "Sample Node.js Project",
+  "description": "API for Inventory opperations",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "dev": "netlify dev",
     "test": "jest --watch"
   },
-  "author": "Adem Cemil YALCIN",
+  "author": "AuraAlloyStudio",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "@azure/storage-blob": "^12.31.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "sequelize": "^6.37.8",
+    "serverless-http": "^3.2.0",
+    "tedious": "^19.2.1"
   },
   "devDependencies": {
     "jest": "^30.2.0",
+    "netlify-cli": "^25.6.0",
+    "sequelize-cli": "^6.6.5",
     "supertest": "^7.1.4"
   }
 }
