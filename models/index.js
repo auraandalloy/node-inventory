@@ -30,8 +30,8 @@ const Inventory = require('./inventory.js')(sequelize, Sequelize.DataTypes);
 db[Inventory.name] = Inventory;
 
 // If you have other models, add them manually as well:
-// const User = require('./user.js')(sequelize, Sequelize.DataTypes);
-// db[User.name] = User;
+const User = require('./user.js')(sequelize, Sequelize.DataTypes);
+db[User.name] = User;
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

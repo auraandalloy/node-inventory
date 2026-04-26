@@ -1,6 +1,5 @@
 // Importing required packages
 const express = require('express');
-const serverless = require('serverless-http');
 
 const app = express();
 
@@ -10,4 +9,6 @@ app.use(express.json()); // Parse incoming JSON request bodies
 
 require('./app/routes')(app); // Routes are imported
 
-module.exports.handler = serverless(app);
+app.listen(app.get('port'), () => {
+  console.log(`Server is running on port ${app.get('port')}`);
+});
