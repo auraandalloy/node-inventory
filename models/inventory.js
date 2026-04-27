@@ -11,7 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Establish the Many-to-Many connection with Tags
+      Inventory.belongsToMany(models.Tag, { 
+        through: 'alloy_InventoryTags',
+        foreignKey: 'inventoryId',
+        otherKey: 'tagId',
+        as: 'tags' // This allows us to use `include: 'tags'` in queries
+      });
     }
   }
   
@@ -24,17 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     image_url: DataTypes.STRING,
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    tags: {
-      type: DataTypes.TEXT,
-      get() {
-        const rawValue = this.getDataValue('tags');
-        // Ensure we always return an array, even for null/empty values.
-        return rawValue ? JSON.parse(rawValue) : [];
-      },
-      set(value) {
-        this.setDataValue('tags', JSON.stringify(value || []));
-      }
-    },
     date: DataTypes.DATE,
     price: DataTypes.DECIMAL(10, 2),
     quantity: DataTypes.INTEGER,

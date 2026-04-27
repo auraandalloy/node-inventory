@@ -1,53 +1,37 @@
-# 📦 Sample Node.js Application with Docker Support
+# Node Inventory API
 
-This repository contains a Node.js application packaged with Docker and managed via Docker Compose. It allows you to run the application in a containerized environment for easy setup and deployment.
+## Developer Scripts
 
-## 📁 Project Structure
-```
-├── app
-│ ├── public
-│ │ └── styles
-│ │     └── styles.css
-│ ├── routes.js
-│ └── server
-│     └── views
-│         └── index.ejs
-├── app.js
-├── docker-compose.yml
-├── Dockerfile
-├── package-lock.json
-├── package.json
-└── README.md
-```
+Here are some helpful scripts to manage the database during development:
 
+### Insert Dummy Inventory Data
 
-## 🚀 Getting Started
+To insert a single dummy inventory item into the database for testing purposes, run:
 
-These instructions will get your application up and running using Docker.
+`node scripts/insert-dummy-inventory.js`
 
-### 🛠️ Prerequisites
+Every time you run this script, it generates a unique ID (using `Date.now()`) to prevent primary key collisions. You can run it as many times as you need to populate your local database with test items.
 
-Make sure you have the following installed:
+### Database Migrations
 
-- [Node.js](https://nodejs.org/) (for local development)
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/)
+This project uses Sequelize to manage database schema changes. To run all pending migrations and update your database, run:
 
-### 📦 Build and Run with Docker Compose
+`npx sequelize-cli db:migrate`
 
-1. **Clone the repository**:
+If you need to rollback the most recent migration, run:
 
-```bash
-git clone https://github.com/acemilyalcin/sample-node-project.git
-cd sample-node-project
-```
+`npx sequelize-cli db:migrate:undo`
 
-2. **Start application**
+To rollback *all* migrations, you can run:
 
-```bash
-docker-compose up --build
-```
+`npx sequelize-cli db:migrate:undo:all`
 
-3. **Access the application**
+### Database Seeding
 
-Once the containers are up, you can access the app at: [http://localhost:3000](http://localhost:3000)
+To populate the database with initial required data (such as default categories), run the seeders:
+
+`npx sequelize-cli db:seed:all`
+
+To undo all seeded data, run:
+
+`npx sequelize-cli db:seed:undo:all`

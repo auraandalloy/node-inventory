@@ -18,11 +18,6 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      tags: {
-        // MSSQL does not support the ARRAY type.
-        // Storing as a JSON string in a TEXT field is a common alternative.
-        type: Sequelize.TEXT
-      },
       date: {
         // Consider using Sequelize.DATE if this field stores an actual Date
         type: Sequelize.DATE 

@@ -33,6 +33,12 @@ db[Inventory.name] = Inventory;
 const User = require('./user.js')(sequelize, Sequelize.DataTypes);
 db[User.name] = User;
 
+const Category = require('./category.js')(sequelize, Sequelize.DataTypes);
+db[Category.name] = Category;
+
+const Tag = require('./tag.js')(sequelize, Sequelize.DataTypes);
+db[Tag.name] = Tag;
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
